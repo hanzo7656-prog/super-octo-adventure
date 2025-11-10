@@ -1,16 +1,11 @@
-# Vortex AI Database Platform 🚀
+# VortexAI Cache Service 🚀
 
-Real-time cryptocurrency data with AI-powered insights and advanced monitoring.
+Simple Redis cache service for VortexAI main system.
 
-## 🎯 Features
-- Real-time crypto data from multiple sources
-- AI-driven market insights  
-- Advanced debugging & monitoring system
-- High-performance caching with Redis
-- RESTful API with comprehensive documentation
+## Endpoints
+- `POST /cache/{key}` - Store data in cache
+- `GET /cache/{key}` - Retrieve data from cache
 
-## 🚀 Quick Start
+## Quick Start
 ```bash
-git clone https://github.com/yourusername/vortexAIdb.git
-cd vortexAIdb
 docker-compose up -d
