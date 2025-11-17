@@ -1,4 +1,4 @@
-// components/ChatInterface.js - نسخه کامل ارتقا یافته
+// components/ChatInterface.js - نسخه بدون دستورات سریع
 import { useState, useRef, useEffect } from 'react'
 
 export default function ChatInterface() {
@@ -13,7 +13,6 @@ export default function ChatInterface() {
   const [inputMessage, setInputMessage] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [userId] = useState(() => {
-    // ایجاد یا بازیابی شناسه کاربر از localStorage
     if (typeof window !== 'undefined') {
       const savedUserId = localStorage.getItem('vortexai_user_id')
       if (savedUserId) return savedUserId
@@ -36,7 +35,6 @@ export default function ChatInterface() {
   }, [messages])
 
   useEffect(() => {
-    // بارگذاری تاریخچه گفتگو هنگام لود کامپوننت
     loadChatHistory()
   }, [])
 
@@ -133,21 +131,6 @@ export default function ChatInterface() {
     }
   }
 
-  const quickCommands = [
-    { icon: '🏥', text: 'سلامت سیستم', command: 'وضعیت سیستم چطوره؟' },
-    { icon: '💾', text: 'وضعیت کش', command: 'کش سالمه؟' },
-    { icon: '🚨', text: 'هشدارها', command: 'هشدار داریم؟' },
-    { icon: '⚡', text: 'مصرف منابع', command: 'مصرف منابع سیستم چقدره؟' },
-    { icon: '₿', text: 'قیمت بیتکوین', command: 'قیمت بیتکوین چنده؟' },
-    { icon: '🏆', text: 'لیست ارزها', command: 'لیست ارزهای برتر رو بده' },
-    { icon: '📰', text: 'اخبار جدید', command: 'اخبار جدید چیه؟' },
-    { icon: '🎯', text: 'ترس و طمع', command: 'شاخص ترس و طمع چنده؟' }
-  ]
-
-  const handleQuickCommand = (command) => {
-    setInputMessage(command)
-  }
-
   const clearChatHistory = () => {
     setMessages([
       {
@@ -160,7 +143,6 @@ export default function ChatInterface() {
   }
 
   const formatMessageContent = (content) => {
-    // فرمت‌دهی متن برای نمایش بهتر
     return content.split('\n').map((line, index) => (
       <span key={index}>
         {line}
@@ -190,7 +172,7 @@ export default function ChatInterface() {
         </button>
       </div>
 
-      {/* پیام‌ها */}
+      {/* پیام‌ها - فضای بیشتر */}
       <div className="chat-messages">
         {messages.map(message => (
           <div key={message.id} className={`message ${message.type} ${message.isError ? 'error' : ''}`}>
@@ -242,34 +224,14 @@ export default function ChatInterface() {
         <div ref={messagesEndRef} />
       </div>
 
-      {/* دستورات سریع */}
-      <div className="quick-commands-section">
-        <div className="quick-commands-header">
-          <span>دستورات سریع:</span>
-        </div>
-        <div className="quick-commands-grid">
-          {quickCommands.map((cmd, index) => (
-            <button
-              key={index}
-              className="quick-command-btn"
-              onClick={() => handleQuickCommand(cmd.command)}
-              disabled={isLoading}
-            >
-              <span className="command-icon">{cmd.icon}</span>
-              <span className="command-text">{cmd.text}</span>
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* ورودی متن */}
+      {/* ورودی متن - بدون دستورات سریع */}
       <div className="chat-input-container">
         <div className="input-wrapper">
           <textarea
             value={inputMessage}
             onChange={(e) => setInputMessage(e.target.value)}
             onKeyPress={handleKeyPress}
-            placeholder="پیام خود را بنویسید... (مثال: وضعیت سیستم، قیمت بیتکوین، اخبار جدید)"
+            placeholder="سوال خود را بپرسید... (مثال: وضعیت سیستم، قیمت بیتکوین، مصرف منابع)"
             rows="1"
             className="chat-input"
             disabled={isLoading}
