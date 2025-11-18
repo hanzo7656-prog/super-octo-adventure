@@ -1,0 +1,80 @@
+/* تم روشن (پیش‌فرض) */
+:root {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --bg-tertiary: #e9ecef;
+  
+  --text-primary: #2d3748;
+  --text-secondary: #4a5568;
+  --text-tertiary: #718096;
+  
+  --border-primary: #e2e8f0;
+  --border-secondary: #cbd5e0;
+  
+  --accent-primary: #667eea;
+  --accent-secondary: #764ba2;
+  
+  --success: #48bb78;
+  --warning: #ed8936;
+  --error: #f56565;
+  --info: #4299e1;
+}
+
+/* تم تاریک */
+[data-theme="dark"] {
+  --bg-primary: #1a202c;
+  --bg-secondary: #2d3748;
+  --bg-tertiary: #4a5568;
+  
+  --text-primary: #f7fafc;
+  --text-secondary: #e2e8f0;
+  --text-tertiary: #a0aec0;
+  
+  --border-primary: #4a5568;
+  --border-secondary: #718096;
+  
+  --accent-primary: #7f9cf5;
+  --accent-secondary: #9f7aea;
+  
+  --success: #68d391;
+  --warning: #f6ad55;
+  --error: #fc8181;
+  --info: #63b3ed;
+}
+
+/* اعمال متغیرها */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* کامپوننت‌های خاص برای تم تاریک */
+[data-theme="dark"] .message-content {
+  background: var(--bg-secondary);
+  border-color: var(--border-primary);
+}
+
+[data-theme="dark"] .sidebar {
+  background: var(--bg-secondary);
+  border-color: var(--border-primary);
+}
+
+[data-theme="dark"] .header {
+  background: var(--bg-secondary);
+  border-color: var(--border-primary);
+}
+
+[data-theme="dark"] .message-input-container {
+  background: var(--bg-secondary);
+  border-color: var(--border-primary);
+}
+
+[data-theme="dark"] .input-wrapper {
+  background: var(--bg-tertiary);
+  border-color: var(--border-primary);
+}
+
+[data-theme="dark"] .input-wrapper:focus-within {
+  background: var(--bg-secondary);
+}
