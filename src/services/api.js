@@ -1,4 +1,4 @@
-const BASE_URL = 'https://ai-test-3gix.onrender.com/api';
+const BASE_URL = 'https://ai-test-3gix.onrender.com';
 
 // بررسی سلامت بک‌اند
 export const checkBackendHealth = async () => {
