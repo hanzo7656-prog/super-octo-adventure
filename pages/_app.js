@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
-import 'styles/globals.css';
-import 'styles/themes.css';
-import { AppStateProvider } from 'hooks/useAppState';
-import NotificationsContainer from 'components/UI/NotificationsContainer';
+import './styles/globals.css';
+import './styles/themes.css';
+import { AppStateProvider } from './hooks/useAppState';
+import NotificationsContainer from './components/UI/NotificationsContainer';
 
 function MyApp({ Component, pageProps }) {
   useEffect(() => {
