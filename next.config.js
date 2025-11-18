@@ -3,16 +3,20 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   env: {
-    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || 'https://ai-test-3gix.onrender.com',
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
   },
-  async rewrites() {
+  async headers() {
     return [
       {
         source: '/api/:path*',
-        destination: `${process.env.NEXT_PUBLIC_API_URL}/api/:path*`,
+        headers: [
+          { key: 'Access-Control-Allow-Origin', value: '*' },
+          { key: 'Access-Control-Allow-Methods', value: 'GET,POST,PUT,DELETE' },
+          { key: 'Access-Control-Allow-Headers', value: 'Content-Type' },
+        ],
       },
-    ]
-  }
-}
+    ];
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
