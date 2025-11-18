@@ -1,9 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
-import Message from './Message';
-import MessageInput from './MessageInput';
-import TypingIndicator from '../UI/TypingIndicator';
-import Suggestions from '../UI/Suggestions';
-import { useChat } from '../../hooks/useChat';
+import Message from 'components/chat/Message';
+import MessageInput from 'components/chat/MessageInput';
+import TypingIndicator from 'components/UI/TypingIndicator';
+import Suggestions from 'components/UI/Suggestions';
+import { useChat } from 'hooks/useChat';
 
 export default function ChatContainer({ session, user, onSessionUpdate }) {
   const {
