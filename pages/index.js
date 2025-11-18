@@ -1,9 +1,10 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import Head from 'next/head'
 import ChatInterface from '../components/ChatInterface'
 import MonitoringDashboard from '../components/MonitoringDashboard'
 import StatusCards from '../components/StatusCards'
 import ResourceMonitor from '../components/ResourceMonitor'
+import HamburgerMenu from '../components/HamburgerMenu'
 import { healthAPI } from '../lib/api'
 
 export default function Home() {
@@ -11,6 +12,7 @@ export default function Home() {
   const [realTimeData, setRealTimeData] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
   const [activeTab, setActiveTab] = useState('chat')
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   useEffect(() => {
     loadInitialData()
@@ -42,6 +44,11 @@ export default function Home() {
     }
   }
 
+  const handleTabChange = (tab) => {
+    setActiveTab(tab)
+    setIsMenuOpen(false) // بستن منو بعد از انتخاب تب
+  }
+
   return (
     <div className="app-container">
       <Head>
@@ -49,60 +56,49 @@ export default function Home() {
         <meta name="description" content="سیستم مانیتورینگ پیشرفته VortexAI" />
       </Head>
 
-      {/* هدر شبیه DeepSeek */}
+      {/* هدر با منوی همبرگر */}
       <header className="app-header">
         <div className="header-content">
+          <button 
+            className="hamburger-btn"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label="منو"
+          >
+            <span className="hamburger-line"></span>
+            <span className="hamburger-line"></span>
+            <span className="hamburger-line"></span>
+          </button>
+          
           <div className="logo-section">
-            <div className="logo">🌀</div>
-            <h1>VortexAI Monitor</h1>
+            <div className="logo">VortexAI</div>
+            <h1 className="header-title">Monitor</h1>
           </div>
+          
           <div className="header-stats">
             {realTimeData && (
-              <>
-                <div className="stat-item">
-                  <span className="stat-label">سلامت</span>
-                  <span className={`stat-value ${realTimeData.health_score > 80 ? 'healthy' : 'warning'}`}>
-                    {realTimeData.health_score}%
-                  </span>
-                </div>
-                <div className="stat-item">
-                  <span className="stat-label">کش</span>
-                  <span className="stat-value">
-                    {realTimeData.services?.cache ? '🟢' : '🔴'}
-                  </span>
-                </div>
-              </>
+              <div className="status-indicator">
+                <span className={`status-dot ${realTimeData.health_score > 80 ? 'healthy' : 'warning'}`}></span>
+                <span className="status-text">
+                  سلامت: {realTimeData.health_score}%
+                </span>
+              </div>
             )}
           </div>
         </div>
       </header>
 
-      {/* تب‌های اصلی */}
-      <nav className="main-nav">
-        <button 
-          className={`nav-tab ${activeTab === 'chat' ? 'active' : ''}`}
-          onClick={() => setActiveTab('chat')}
-        >
-          💬 گفتگو
-        </button>
-        <button 
-          className={`nav-tab ${activeTab === 'monitor' ? 'active' : ''}`}
-          onClick={() => setActiveTab('monitor')}
-        >
-          📊 مانیتور
-        </button>
-        <button 
-          className={`nav-tab ${activeTab === 'resources' ? 'active' : ''}`}
-          onClick={() => setActiveTab('resources')}
-        >
-          ⚡ منابع
-        </button>
-      </nav>
+      {/* منوی همبرگر */}
+      <HamburgerMenu 
+        isOpen={isMenuOpen}
+        onClose={() => setIsMenuOpen(false)}
+        activeTab={activeTab}
+        onTabChange={handleTabChange}
+      />
 
       {/* محتوای اصلی */}
       <main className="main-content">
         {activeTab === 'chat' && (
-          <div className="chat-section">
+          <div className="chat-section fullscreen">
             <ChatInterface />
           </div>
         )}
@@ -121,13 +117,13 @@ export default function Home() {
         )}
       </main>
 
-      {/* فوتر */}
-      <footer className="app-footer">
+      {/* فوتر فقط برای دسکتاپ */}
+      <footer className="app-footer desktop-only">
         <div className="footer-content">
           <span>VortexAI Monitor v4.0.0</span>
-          <span>•</span>
-          <span>Status: {systemStatus?.status === 'healthy' ? '🟢 عملیاتی' : '🔴 اختلال'}</span>
-          <span>•</span>
+          <span className="separator">•</span>
+          <span>Status: {systemStatus?.status === 'healthy' ? 'عملیاتی' : 'اختلال'}</span>
+          <span className="separator">•</span>
           <span>آخرین بروزرسانی: {new Date().toLocaleTimeString('fa-IR')}</span>
         </div>
       </footer>
